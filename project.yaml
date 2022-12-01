@@ -35,3 +35,8 @@ dataSources:
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
+        - handler: handleEncointerTransfer
+          kind: substrate/CallHandler
+          filter:
+            module: encointerBalances
+            method: transfer

@@ -19,3 +19,15 @@ type Extrinsic @entity {
   success: Boolean!
   isSigned: Boolean!
 }
+
+type EncointerTransfer @entity {
+  id: ID!
+  txHash: String! @index
+  blockHeight: BigInt! @index
+  success: Boolean!
+  from: String! @index
+  to: String! @index
+  amount: String! @index
+  geohash: String! @index
+  digest: String! @index
+}
