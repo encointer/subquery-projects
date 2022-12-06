@@ -29,14 +29,14 @@ network:
     file: ./dist/chaintypes.js
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1788326
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
         - handler: handleEncointerTransfer
-          kind: substrate/CallHandler
+          kind: substrate/EventHandler
           filter:
             module: encointerBalances
-            method: transfer
+            method: Transferred

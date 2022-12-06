@@ -1,7 +1,7 @@
 
 
 import { EventRecord } from "@polkadot/types/interfaces";
-import { SubstrateExtrinsic, SubstrateBlock } from "@subql/types";
+import { SubstrateExtrinsic, SubstrateBlock, SubstrateEvent } from "@subql/types";
 import { SpecVersion, Event, Extrinsic, EncointerTransfer } from "../types";
 
 let specVersion: SpecVersion;
@@ -81,18 +81,23 @@ function wrapExtrinsics(wrappedBlock: SubstrateBlock): SubstrateExtrinsic[] {
 }
 
 
-export async function handleEncointerTransfer(extrinsic: SubstrateExtrinsic): Promise<void> {
-  let record = new EncointerTransfer(`${extrinsic.block.block.header.number.toString()}-${extrinsic.idx}`);
+export async function handleEncointerTransfer(event: SubstrateEvent): Promise<void> {
+  let record = new EncointerTransfer(`${event.block.block.header.number.toString()}-${event.idx}`);
 
-  record.txHash = extrinsic.extrinsic.hash.toString();
-  record.blockHeight = extrinsic.block.block.header.number.toBigInt();
-  record.success = extrinsic.success;
-  record.from = extrinsic.extrinsic.signer.toString();
-  record.to = extrinsic.extrinsic.args[0].toString();
-  const cid = extrinsic.extrinsic.args[1].toHuman()
-  record.geohash = cid['geohash'];
-  record.digest = cid['digest'];
-  record.amount = extrinsic.extrinsic.args[2].toString(); 
+  for(const extrinsic of event.block.block.extrinsics) {
+    if(extrinsic.method.section == 'timestamp' && extrinsic.method.method == 'set') {
+      record.timestamp = BigInt(extrinsic.args[0].toString())
+      break
+    }
+  }
+   
+  record.txHash = event.extrinsic.extrinsic.hash.toString();
+  record.blockHeight = event.block.block.header.number.toBigInt();
+  record.from = event.event.data[1].toString();
+  record.to = event.event.data[2].toString();
+  record.amount = event.event.data[3]['bits'].toString();
+  const cid = event.event.data[0];
+  record.cid = cid['geohash'] + cid['digest']
 
   await record.save();
 }

@@ -22,12 +22,11 @@ type Extrinsic @entity {
 
 type EncointerTransfer @entity {
   id: ID!
+  timestamp: BigInt!
   txHash: String! @index
   blockHeight: BigInt! @index
-  success: Boolean!
   from: String! @index
   to: String! @index
-  amount: String! @index
-  geohash: String! @index
-  digest: String! @index
+  amount: String!
+  cid: String! @index
 }
