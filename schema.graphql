@@ -1,32 +1,915 @@
 type SpecVersion @entity {
-  id: ID! #specVersion
-  blockHeight: BigInt!
+        id: ID! #specVersion
+        blockHeight: BigInt!
+}
+      
+type Block @entity {
+        id: ID!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 }
 
-type Event @entity {
-  id: ID!
-  module: String! @index
-  event: String! @index
-  blockHeight: BigInt! @index
+type SysExtrinsicSuccess @entity {
+        id: ID!
+        block: Block!
+        DispatchInfo: String!
 }
 
-type Extrinsic @entity {
-  id: ID!
-  txHash: String! @index
-  module: String! @index
-  call: String! @index
-  blockHeight: BigInt! @index
-  success: Boolean!
-  isSigned: Boolean!
+type SysExtrinsicFailed @entity {
+        id: ID!
+        block: Block!
+        DispatchError: String!
+        DispatchInfo: String!
 }
 
-type EncointerTransfer @entity {
-  id: ID!
-  timestamp: BigInt!
-  txHash: String! @index
-  blockHeight: BigInt! @index
-  from: String! @index
-  to: String! @index
-  amount: String!
-  cid: String! @index
+type SysCodeUpdated @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type SysNewAccount @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+}
+
+type SysKilledAccount @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+}
+
+type SysRemarked @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        THash: String!
+}
+
+type ParValidationFunctionStored @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type ParValidationFunctionApplied @entity {
+        id: ID!
+        block: Block!
+        RelayChainBlockNumber: String!
+}
+
+type ParValidationFunctionDiscarded @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type ParUpgradeAuthorized @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+}
+
+type ParDownwardMessagesReceived @entity {
+        id: ID!
+        block: Block!
+        u32: String!
+}
+
+type ParDownwardMessagesProcessed @entity {
+        id: ID!
+        block: Block!
+        Weight: String!
+        relaychainHash: String!
+}
+
+type BalEndowed @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalDustLost @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalTransfer @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        TBalance: String!
+}
+
+type BalBalanceSet @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance0: String!
+        TBalance1: String!
+}
+
+type BalReserved @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalUnreserved @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalReserveRepatriated @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        TBalance: String!
+        Status: String!
+}
+
+type BalDeposit @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalWithdraw @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type BalSlashed @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        TBalance: String!
+}
+
+type TraTransactionFeePaid @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        BalanceOfT0: String!
+        BalanceOfT1: String!
+}
+
+type AssAssetTxFeePaid @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        BalanceOfT0: String!
+        BalanceOfT1: String!
+        OptionChargeAssetIdOfT: String!
+}
+
+type XcmSuccess @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+        Weight: String!
+}
+
+type XcmFail @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+        XcmError: String!
+        Weight: String!
+}
+
+type XcmBadVersion @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+}
+
+type XcmBadFormat @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+}
+
+type XcmUpwardMessageSent @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+}
+
+type XcmXcmpMessageSent @entity {
+        id: ID!
+        block: Block!
+        OptionTHash: String!
+}
+
+type XcmOverweightEnqueued @entity {
+        id: ID!
+        block: Block!
+        ParaId: String!
+        RelayBlockNumber: String!
+        OverweightIndex: String!
+        Weight: String!
+}
+
+type XcmOverweightServiced @entity {
+        id: ID!
+        block: Block!
+        OverweightIndex: String!
+        Weight: String!
+}
+
+type PolAttempted @entity {
+        id: ID!
+        block: Block!
+        xcmlatestOutcome: String!
+}
+
+type PolSent @entity {
+        id: ID!
+        block: Block!
+        MultiLocation0: String!
+        MultiLocation1: String!
+        Xcm: String!
+}
+
+type PolUnexpectedResponse @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        QueryId: String!
+}
+
+type PolResponseReady @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+        Response: String!
+}
+
+type PolNotified @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+        u80: String!
+        u81: String!
+}
+
+type PolNotifyOverweight @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+        u80: String!
+        u81: String!
+        Weight0: String!
+        Weight1: String!
+}
+
+type PolNotifyDispatchError @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+        u80: String!
+        u81: String!
+}
+
+type PolNotifyDecodeFailed @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+        u80: String!
+        u81: String!
+}
+
+type PolInvalidResponder @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        QueryId: String!
+        OptionMultiLocation: String!
+}
+
+type PolInvalidResponderVersion @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        QueryId: String!
+}
+
+type PolResponseTaken @entity {
+        id: ID!
+        block: Block!
+        QueryId: String!
+}
+
+type PolAssetsTrapped @entity {
+        id: ID!
+        block: Block!
+        H256: String!
+        MultiLocation: String!
+        VersionedMultiAssets: String!
+}
+
+type PolVersionChangeNotified @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        XcmVersion: String!
+}
+
+type PolSupportedVersionChanged @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        XcmVersion: String!
+}
+
+type PolNotifyTargetSendFail @entity {
+        id: ID!
+        block: Block!
+        MultiLocation: String!
+        QueryId: String!
+        XcmError: String!
+}
+
+type PolNotifyTargetMigrationFail @entity {
+        id: ID!
+        block: Block!
+        VersionedMultiLocation: String!
+        QueryId: String!
+}
+
+type CumInvalidFormat @entity {
+        id: ID!
+        block: Block!
+        u88: String!
+}
+
+type CumUnsupportedVersion @entity {
+        id: ID!
+        block: Block!
+        u88: String!
+}
+
+type CumExecutedDownward @entity {
+        id: ID!
+        block: Block!
+        u88: String!
+        Outcome: String!
+}
+
+type DmpInvalidFormat @entity {
+        id: ID!
+        block: Block!
+        MessageId: String!
+}
+
+type DmpUnsupportedVersion @entity {
+        id: ID!
+        block: Block!
+        MessageId: String!
+}
+
+type DmpExecutedDownward @entity {
+        id: ID!
+        block: Block!
+        MessageId: String!
+        Outcome: String!
+}
+
+type DmpWeightExhausted @entity {
+        id: ID!
+        block: Block!
+        MessageId: String!
+        Weight0: String!
+        Weight1: String!
+}
+
+type DmpOverweightEnqueued @entity {
+        id: ID!
+        block: Block!
+        MessageId: String!
+        OverweightIndex: String!
+        Weight: String!
+}
+
+type DmpOverweightServiced @entity {
+        id: ID!
+        block: Block!
+        OverweightIndex: String!
+        Weight: String!
+}
+
+type UtiBatchInterrupted @entity {
+        id: ID!
+        block: Block!
+        u32: String!
+        DispatchError: String!
+}
+
+type UtiBatchCompleted @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type UtiBatchCompletedWithErrors @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type UtiItemCompleted @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type UtiItemFailed @entity {
+        id: ID!
+        block: Block!
+        DispatchError: String!
+}
+
+type UtiDispatchedAs @entity {
+        id: ID!
+        block: Block!
+        DispatchResult: String!
+}
+
+type TreProposed @entity {
+        id: ID!
+        block: Block!
+        ProposalIndex: String!
+}
+
+type TreSpending @entity {
+        id: ID!
+        block: Block!
+        BalanceOfTI: String!
+}
+
+type TreAwarded @entity {
+        id: ID!
+        block: Block!
+        ProposalIndex: String!
+        BalanceOfTI: String!
+        TAccountId: String!
+}
+
+type TreRejected @entity {
+        id: ID!
+        block: Block!
+        ProposalIndex: String!
+        BalanceOfTI: String!
+}
+
+type TreBurnt @entity {
+        id: ID!
+        block: Block!
+        BalanceOfTI: String!
+}
+
+type TreRollover @entity {
+        id: ID!
+        block: Block!
+        BalanceOfTI: String!
+}
+
+type TreDeposit @entity {
+        id: ID!
+        block: Block!
+        BalanceOfTI: String!
+}
+
+type TreSpendApproved @entity {
+        id: ID!
+        block: Block!
+        ProposalIndex: String!
+        BalanceOfTI: String!
+        TAccountId: String!
+}
+
+type ProProxyExecuted @entity {
+        id: ID!
+        block: Block!
+        DispatchResult: String!
+}
+
+type ProAnonymousCreated @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        TProxyType: String!
+        u16: String!
+}
+
+type ProAnnounced @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        CallHashOfT: String!
+}
+
+type ProProxyAdded @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        TProxyType: String!
+        TBlockNumber: String!
+}
+
+type ProProxyRemoved @entity {
+        id: ID!
+        block: Block!
+        TAccountId0: String!
+        TAccountId1: String!
+        TProxyType: String!
+        TBlockNumber: String!
+}
+
+type SchScheduled @entity {
+        id: ID!
+        block: Block!
+        TBlockNumber: String!
+        u32: String!
+}
+
+type SchCanceled @entity {
+        id: ID!
+        block: Block!
+        TBlockNumber: String!
+        u32: String!
+}
+
+type SchDispatched @entity {
+        id: ID!
+        block: Block!
+        TaskAddressTBlockNumber: String!
+        OptionVecu8: String!
+        DispatchResult: String!
+}
+
+type SchCallLookupFailed @entity {
+        id: ID!
+        block: Block!
+        TaskAddressTBlockNumber: String!
+        OptionVecu8: String!
+        LookupError: String!
+}
+
+type ColProposed @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        ProposalIndex: String!
+        THash: String!
+        MemberCount: String!
+}
+
+type ColVoted @entity {
+        id: ID!
+        block: Block!
+        TAccountId: String!
+        THash: String!
+        bool: String!
+        MemberCount0: String!
+        MemberCount1: String!
+}
+
+type ColApproved @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+}
+
+type ColDisapproved @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+}
+
+type ColExecuted @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+        DispatchResult: String!
+}
+
+type ColMemberExecuted @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+        DispatchResult: String!
+}
+
+type ColClosed @entity {
+        id: ID!
+        block: Block!
+        THash: String!
+        MemberCount0: String!
+        MemberCount1: String!
+}
+
+type MemMemberAdded @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type MemMemberRemoved @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type MemMembersSwapped @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type MemMembersReset @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type MemKeyChanged @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type MemDummy @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type EncPhaseChangedTo @entity {
+        id: ID!
+        block: Block!
+        CeremonyPhaseType: String!
+}
+
+type EncCeremonySchedulePushedByOneDay @entity {
+        id: ID!
+        block: Block!
+
+}
+
+type EncParticipantRegistered @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        ParticipantType: String!
+        TAccountId: String!
+}
+
+type EncEndorsedParticipant @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId0: String!
+        TAccountId1: String!
+}
+
+type EncAttestationsRegistered @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        MeetupIndexType: String!
+        u32: String!
+        TAccountId: String!
+}
+
+type EncRewardsIssued @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        MeetupIndexType: String!
+        MeetupParticipantIndexType: String!
+}
+
+type EncInactivityTimeoutUpdated @entity {
+        id: ID!
+        block: Block!
+        InactivityTimeoutType: String!
+}
+
+type EncEndorsementTicketsPerBootstrapperUpdated @entity {
+        id: ID!
+        block: Block!
+        EndorsementTicketsType: String!
+}
+
+type EncEndorsementTicketsPerReputableUpdated @entity {
+        id: ID!
+        block: Block!
+        EndorsementTicketsType: String!
+}
+
+type EncReputationLifetimeUpdated @entity {
+        id: ID!
+        block: Block!
+        ReputationLifetimeType: String!
+}
+
+type EncMeetupTimeOffsetUpdated @entity {
+        id: ID!
+        block: Block!
+        MeetupTimeOffsetType: String!
+}
+
+type EncTimeToleranceUpdated @entity {
+        id: ID!
+        block: Block!
+        TMoment: String!
+}
+
+type EncLocationToleranceUpdated @entity {
+        id: ID!
+        block: Block!
+        u32: String!
+}
+
+type EncCommunityCeremonyHistoryPurged @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        CeremonyIndexType: String!
+}
+
+type EncNoReward @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        CeremonyIndexType: String!
+        MeetupIndexType: String!
+        TAccountId: String!
+        ExclusionReason: String!
+}
+
+type EncInactivityCounterUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        u32: String!
+}
+
+type EncMeetupEvaluated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        MeetupIndexType: String!
+        MeetupResult: String!
+}
+
+type EncCommunityRegistered @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+}
+
+type EncMetadataUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+}
+
+type EncNominalIncomeUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        NominalIncomeType: String!
+}
+
+type EncDemurrageUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        Demurrage: String!
+}
+
+type EncLocationAdded @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        Location: String!
+}
+
+type EncLocationRemoved @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        Location: String!
+}
+
+type EncMinSolarTripTimeSUpdated @entity {
+        id: ID!
+        block: Block!
+        MinSolarTripTimeType: String!
+}
+
+type EncMaxSpeedMpsUpdated @entity {
+        id: ID!
+        block: Block!
+        MaxSpeedMpsType: String!
+}
+
+type EncCommunityPurged @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+}
+
+type EncEndowed @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        BalanceType: String!
+}
+
+type EncTransferred @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId0: String!
+        TAccountId1: String!
+        BalanceType: String!
+}
+
+type EncIssued @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        BalanceType: String!
+}
+
+type EncFeeConversionFactorUpdated @entity {
+        id: ID!
+        block: Block!
+        FeeConversionFactorType: String!
+}
+
+type EncBusinessCreated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+}
+
+type EncBusinessUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+}
+
+type EncBusinessDeleted @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+}
+
+type EncOfferingCreated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        OfferingIdentifier: String!
+}
+
+type EncOfferingUpdated @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        OfferingIdentifier: String!
+}
+
+type EncOfferingDeleted @entity {
+        id: ID!
+        block: Block!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        OfferingIdentifier: String!
 }
