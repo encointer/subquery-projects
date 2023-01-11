@@ -1,28 +1,20 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 const encointer_rpc_endpoint = "wss://kusama.api.encointer.org";
 
-import { formatTypeName, generateGraphQlEntityName, getFieldTypeNames, getGraphQlFieldTypes } from "./util";
+import { formatTypeName, generateGraphQlEntityName, getFieldTypeNames, getGraphQlFieldTypes, getTypeVariants } from "./util";
 import { getTypeConversion } from "./typeConversions";
 import fs from 'fs'
 
 const wsProvider = new WsProvider(encointer_rpc_endpoint);
 
-function getTypeByIndex(api, idx) {
-    return api.registry.lookup.types[idx];
-}
-
-function getTypeVariants(api, type) {
-    return getTypeByIndex(api, type)?.type.def.asVariant.variants.toHuman();
-}
-
 // function formatTypeName(typeName) {
 //     return typeName.replace(/[\W_]+/g, "");
 // }
 
-function generateGraphQlEventCode(pallet, event) {
-    const typeName = generateGraphQlEntityName(pallet, event);
-    let fields = getFieldTypeNames(event);
-    let graphQlFieldTypes = getGraphQlFieldTypes(event);
+function generateGraphQlEventCode(pallet, eventType) {
+    const typeName = generateGraphQlEntityName(pallet, eventType.name);
+    let fields = getFieldTypeNames(eventType);
+    let graphQlFieldTypes = getGraphQlFieldTypes(eventType);
     // TODO add indices for certain fields only
     const args = fields.map(
         (field, idx) => `        ${field}: ${graphQlFieldTypes[idx]}!`
@@ -31,7 +23,8 @@ function generateGraphQlEventCode(pallet, event) {
 
     const code = `type ${typeName} @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 ${argString}
 }`;
     return code;
@@ -58,6 +51,7 @@ function generateGraphQlCode(api) {
         let events = getTypeVariants(api, pallet.events.toHuman()?.type);
         if (!events) continue;
         for (const event of events) {
+            console.log(event.fields)
             codeParts.push(
                 generateGraphQlEventCode(pallet.name.toHuman(), event)
             );

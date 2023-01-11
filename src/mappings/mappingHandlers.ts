@@ -9,7 +9,22 @@ import {
     generateGraphQlEntityName,
     getFieldTypeConversionFunctions,
     getFieldTypeNames,
+    getTypeByIndex,
+    getTypeVariants,
 } from "../codeGen/util";
+
+import util from 'util'
+
+
+
+function inspect(message){
+  return util.inspect(message, {
+    showHidden: false,
+    depth: null,
+    colors: true,
+})
+}
+
 
 let specVersion: types.SpecVersion;
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
@@ -51,29 +66,63 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
             )
     );
 
-    for (const [idx, event] of events.entries()) {
+    for (const [idx, evt] of events.entries()) {
+        let event = evt.event
         // get event typename
         const eventEntityName = generateGraphQlEntityName(
-            event,
-            event.event.section
-        );
+            event.section,
+            event.method
+        )
 
         // init type dynamically, record = new .....()
         let record = new types[eventEntityName](
             `${block.block.header.number.toString()}-${idx}`
         );
 
-        record.block = blockEntity;
+        //logger.info(inspect(Object.keys(record)));
+        record.blockHeight = blockEntity.blockHeight;
+        record.timestamp = blockEntity.timestamp;
         //record.txHash = event.extrinsic.extrinsic.hash.toString();
         // get all event fields typenames
-        const fields = getFieldTypeNames(event);
+
+        let fieldTypes = event.typeDef.map(t => getTypeByIndex(api, t.lookupIndex)?.type.def.toHuman())
+        //logger.info(inspect(fieldTypes))
+
+        // let dataTypes = event.data.typeDef.map(t => getTypeByIndex(api, t.lookupIndex)?.type.toHuman())
+
+        // logger.info(event.Type.index)
+          
+        // logger.info(event.section)
+
+
+        let section = event.section.charAt(0).toUpperCase() + event.section.slice(1)
+
+
+        // APPROACH WE HAVE to go over the metadata because in metadata there it is T::AccountId and in Event it is AccountId32
+        //logger.info(inspect((await api.rpc.state.getMetadata()).asV14.pallets.find(e => e.name.eq(section)).events[parseInt(event.index.toString())]))
+        //logger.info(inspect(getTypeVariants(api, (await api.rpc.state.getMetadata()).asV14.pallets.find(e => e.name.eq(section)).events.toHuman())))
+        
+        //let events = (await api.rpc.state.getMetadata()).asV14.pallets.find(e => e.name.eq(section)).events.toJSON()['type']
+        let events = getTypeVariants(api, (await api.rpc.state.getMetadata()).asV14.pallets.find(e => e.name.eq(section)).events.toJSON()['type'])
+        let eventType = events.find(e => e.name == event.method)
+        // logger.info(inspect(events))
+        // logger.info(parseInt(event.index.toString()))
+        // logger.info(inspect(event.toHuman()))
+        // logger.info(inspect(eventType))
+        // throw Error()
+
+
+        // logger.info(inspect(getTypeByIndex(api, parseInt(event.Type.index))?.type.toHuman()))
+        const fields = getFieldTypeNames(eventType);
+
+
 
         // get conversion functions
-        const conversions = getFieldTypeConversionFunctions(event);
+       const conversions = getFieldTypeConversionFunctions(eventType);
 
         // record[typename] = convert(event.event.data[i]);
         for (let i = 0; i < fields.length; i++) {
-            record[fields[i]] = conversions[i](event.event.data[i]);
+            record[fields[i]] = conversions[i](event.data[i]);
         }
         await record.save()
     }

@@ -11,96 +11,111 @@ type Block @entity {
 
 type SysExtrinsicSuccess @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         DispatchInfo: String!
 }
 
 type SysExtrinsicFailed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         DispatchError: String!
         DispatchInfo: String!
 }
 
 type SysCodeUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type SysNewAccount @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
 }
 
 type SysKilledAccount @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
 }
 
 type SysRemarked @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         THash: String!
 }
 
 type ParValidationFunctionStored @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type ParValidationFunctionApplied @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         RelayChainBlockNumber: String!
 }
 
 type ParValidationFunctionDiscarded @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type ParUpgradeAuthorized @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
 }
 
 type ParDownwardMessagesReceived @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u32: String!
 }
 
 type ParDownwardMessagesProcessed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         Weight: String!
         relaychainHash: String!
 }
 
 type BalEndowed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalDustLost @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalTransfer @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         TBalance: String!
@@ -108,7 +123,8 @@ type BalTransfer @entity {
 
 type BalBalanceSet @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance0: String!
         TBalance1: String!
@@ -116,21 +132,24 @@ type BalBalanceSet @entity {
 
 type BalReserved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalUnreserved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalReserveRepatriated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         TBalance: String!
@@ -139,28 +158,32 @@ type BalReserveRepatriated @entity {
 
 type BalDeposit @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalWithdraw @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type BalSlashed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         TBalance: String!
 }
 
 type TraTransactionFeePaid @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         BalanceOfT0: String!
         BalanceOfT1: String!
@@ -168,7 +191,8 @@ type TraTransactionFeePaid @entity {
 
 type AssAssetTxFeePaid @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         BalanceOfT0: String!
         BalanceOfT1: String!
@@ -177,14 +201,16 @@ type AssAssetTxFeePaid @entity {
 
 type XcmSuccess @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
         Weight: String!
 }
 
 type XcmFail @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
         XcmError: String!
         Weight: String!
@@ -192,31 +218,36 @@ type XcmFail @entity {
 
 type XcmBadVersion @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
 }
 
 type XcmBadFormat @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
 }
 
 type XcmUpwardMessageSent @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
 }
 
 type XcmXcmpMessageSent @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OptionTHash: String!
 }
 
 type XcmOverweightEnqueued @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ParaId: String!
         RelayBlockNumber: String!
         OverweightIndex: String!
@@ -225,20 +256,23 @@ type XcmOverweightEnqueued @entity {
 
 type XcmOverweightServiced @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OverweightIndex: String!
         Weight: String!
 }
 
 type PolAttempted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         xcmlatestOutcome: String!
 }
 
 type PolSent @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation0: String!
         MultiLocation1: String!
         Xcm: String!
@@ -246,21 +280,24 @@ type PolSent @entity {
 
 type PolUnexpectedResponse @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         QueryId: String!
 }
 
 type PolResponseReady @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
         Response: String!
 }
 
 type PolNotified @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
         u80: String!
         u81: String!
@@ -268,7 +305,8 @@ type PolNotified @entity {
 
 type PolNotifyOverweight @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
         u80: String!
         u81: String!
@@ -278,7 +316,8 @@ type PolNotifyOverweight @entity {
 
 type PolNotifyDispatchError @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
         u80: String!
         u81: String!
@@ -286,7 +325,8 @@ type PolNotifyDispatchError @entity {
 
 type PolNotifyDecodeFailed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
         u80: String!
         u81: String!
@@ -294,7 +334,8 @@ type PolNotifyDecodeFailed @entity {
 
 type PolInvalidResponder @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         QueryId: String!
         OptionMultiLocation: String!
@@ -302,20 +343,23 @@ type PolInvalidResponder @entity {
 
 type PolInvalidResponderVersion @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         QueryId: String!
 }
 
 type PolResponseTaken @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         QueryId: String!
 }
 
 type PolAssetsTrapped @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         H256: String!
         MultiLocation: String!
         VersionedMultiAssets: String!
@@ -323,21 +367,24 @@ type PolAssetsTrapped @entity {
 
 type PolVersionChangeNotified @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         XcmVersion: String!
 }
 
 type PolSupportedVersionChanged @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         XcmVersion: String!
 }
 
 type PolNotifyTargetSendFail @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MultiLocation: String!
         QueryId: String!
         XcmError: String!
@@ -345,52 +392,60 @@ type PolNotifyTargetSendFail @entity {
 
 type PolNotifyTargetMigrationFail @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         VersionedMultiLocation: String!
         QueryId: String!
 }
 
 type CumInvalidFormat @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u88: String!
 }
 
 type CumUnsupportedVersion @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u88: String!
 }
 
 type CumExecutedDownward @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u88: String!
         Outcome: String!
 }
 
 type DmpInvalidFormat @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MessageId: String!
 }
 
 type DmpUnsupportedVersion @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MessageId: String!
 }
 
 type DmpExecutedDownward @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MessageId: String!
         Outcome: String!
 }
 
 type DmpWeightExhausted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MessageId: String!
         Weight0: String!
         Weight1: String!
@@ -398,7 +453,8 @@ type DmpWeightExhausted @entity {
 
 type DmpOverweightEnqueued @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MessageId: String!
         OverweightIndex: String!
         Weight: String!
@@ -406,63 +462,73 @@ type DmpOverweightEnqueued @entity {
 
 type DmpOverweightServiced @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         OverweightIndex: String!
         Weight: String!
 }
 
 type UtiBatchInterrupted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u32: String!
         DispatchError: String!
 }
 
 type UtiBatchCompleted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type UtiBatchCompletedWithErrors @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type UtiItemCompleted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type UtiItemFailed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         DispatchError: String!
 }
 
 type UtiDispatchedAs @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         DispatchResult: String!
 }
 
 type TreProposed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ProposalIndex: String!
 }
 
 type TreSpending @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         BalanceOfTI: String!
 }
 
 type TreAwarded @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ProposalIndex: String!
         BalanceOfTI: String!
         TAccountId: String!
@@ -470,32 +536,37 @@ type TreAwarded @entity {
 
 type TreRejected @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ProposalIndex: String!
         BalanceOfTI: String!
 }
 
 type TreBurnt @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         BalanceOfTI: String!
 }
 
 type TreRollover @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         BalanceOfTI: String!
 }
 
 type TreDeposit @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         BalanceOfTI: String!
 }
 
 type TreSpendApproved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ProposalIndex: String!
         BalanceOfTI: String!
         TAccountId: String!
@@ -503,13 +574,15 @@ type TreSpendApproved @entity {
 
 type ProProxyExecuted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         DispatchResult: String!
 }
 
 type ProAnonymousCreated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         TProxyType: String!
@@ -518,7 +591,8 @@ type ProAnonymousCreated @entity {
 
 type ProAnnounced @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         CallHashOfT: String!
@@ -526,7 +600,8 @@ type ProAnnounced @entity {
 
 type ProProxyAdded @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         TProxyType: String!
@@ -535,7 +610,8 @@ type ProProxyAdded @entity {
 
 type ProProxyRemoved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId0: String!
         TAccountId1: String!
         TProxyType: String!
@@ -544,21 +620,24 @@ type ProProxyRemoved @entity {
 
 type SchScheduled @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TBlockNumber: String!
         u32: String!
 }
 
 type SchCanceled @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TBlockNumber: String!
         u32: String!
 }
 
 type SchDispatched @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TaskAddressTBlockNumber: String!
         OptionVecu8: String!
         DispatchResult: String!
@@ -566,7 +645,8 @@ type SchDispatched @entity {
 
 type SchCallLookupFailed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TaskAddressTBlockNumber: String!
         OptionVecu8: String!
         LookupError: String!
@@ -574,7 +654,8 @@ type SchCallLookupFailed @entity {
 
 type ColProposed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         ProposalIndex: String!
         THash: String!
@@ -583,7 +664,8 @@ type ColProposed @entity {
 
 type ColVoted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TAccountId: String!
         THash: String!
         bool: String!
@@ -593,33 +675,38 @@ type ColVoted @entity {
 
 type ColApproved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
 }
 
 type ColDisapproved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
 }
 
 type ColExecuted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
         DispatchResult: String!
 }
 
 type ColMemberExecuted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
         DispatchResult: String!
 }
 
 type ColClosed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         THash: String!
         MemberCount0: String!
         MemberCount1: String!
@@ -627,55 +714,64 @@ type ColClosed @entity {
 
 type MemMemberAdded @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type MemMemberRemoved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type MemMembersSwapped @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type MemMembersReset @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type MemKeyChanged @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type MemDummy @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type EncPhaseChangedTo @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CeremonyPhaseType: String!
 }
 
 type EncCeremonySchedulePushedByOneDay @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
 
 }
 
 type EncParticipantRegistered @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         ParticipantType: String!
         TAccountId: String!
@@ -683,7 +779,8 @@ type EncParticipantRegistered @entity {
 
 type EncEndorsedParticipant @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId0: String!
         TAccountId1: String!
@@ -691,7 +788,8 @@ type EncEndorsedParticipant @entity {
 
 type EncAttestationsRegistered @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         MeetupIndexType: String!
         u32: String!
@@ -700,7 +798,8 @@ type EncAttestationsRegistered @entity {
 
 type EncRewardsIssued @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         MeetupIndexType: String!
         MeetupParticipantIndexType: String!
@@ -708,56 +807,65 @@ type EncRewardsIssued @entity {
 
 type EncInactivityTimeoutUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         InactivityTimeoutType: String!
 }
 
 type EncEndorsementTicketsPerBootstrapperUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         EndorsementTicketsType: String!
 }
 
 type EncEndorsementTicketsPerReputableUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         EndorsementTicketsType: String!
 }
 
 type EncReputationLifetimeUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         ReputationLifetimeType: String!
 }
 
 type EncMeetupTimeOffsetUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MeetupTimeOffsetType: String!
 }
 
 type EncTimeToleranceUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         TMoment: String!
 }
 
 type EncLocationToleranceUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         u32: String!
 }
 
 type EncCommunityCeremonyHistoryPurged @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         CeremonyIndexType: String!
 }
 
 type EncNoReward @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         CeremonyIndexType: String!
         MeetupIndexType: String!
@@ -767,14 +875,16 @@ type EncNoReward @entity {
 
 type EncInactivityCounterUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         u32: String!
 }
 
 type EncMeetupEvaluated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         MeetupIndexType: String!
         MeetupResult: String!
@@ -782,65 +892,75 @@ type EncMeetupEvaluated @entity {
 
 type EncCommunityRegistered @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
 type EncMetadataUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
 type EncNominalIncomeUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         NominalIncomeType: String!
 }
 
 type EncDemurrageUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         Demurrage: String!
 }
 
 type EncLocationAdded @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         Location: String!
 }
 
 type EncLocationRemoved @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         Location: String!
 }
 
 type EncMinSolarTripTimeSUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MinSolarTripTimeType: String!
 }
 
 type EncMaxSpeedMpsUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         MaxSpeedMpsType: String!
 }
 
 type EncCommunityPurged @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
 type EncEndowed @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
         BalanceType: String!
@@ -848,7 +968,8 @@ type EncEndowed @entity {
 
 type EncTransferred @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId0: String!
         TAccountId1: String!
@@ -857,7 +978,8 @@ type EncTransferred @entity {
 
 type EncIssued @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
         BalanceType: String!
@@ -865,34 +987,39 @@ type EncIssued @entity {
 
 type EncFeeConversionFactorUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         FeeConversionFactorType: String!
 }
 
 type EncBusinessCreated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
 }
 
 type EncBusinessUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
 }
 
 type EncBusinessDeleted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
 }
 
 type EncOfferingCreated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
         OfferingIdentifier: String!
@@ -900,7 +1027,8 @@ type EncOfferingCreated @entity {
 
 type EncOfferingUpdated @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
         OfferingIdentifier: String!
@@ -908,7 +1036,8 @@ type EncOfferingUpdated @entity {
 
 type EncOfferingDeleted @entity {
         id: ID!
-        block: Block!
+        blockHeight: BigInt!
+        timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
         OfferingIdentifier: String!

@@ -1,4 +1,16 @@
+import { ApiDecoration, DecoratedRpc } from "@polkadot/api/types";
+import { RpcInterface } from "@polkadot/rpc-core/types";
+import { TypeDef } from "@polkadot/types-create/types";
 import { getTypeConversion } from "./typeConversions";
+
+export function getTypeByIndex(api, idx) {
+    return api.registry.lookup.types[idx];
+}
+
+export function getTypeVariants(api, type: TypeDef[]) {
+    return getTypeByIndex(api, type)?.type.def.asVariant.variants.toHuman();
+}
+
 
 function deDupTypeNames(typeNames) {
     for (let i = 0; i < typeNames.length - 1; i++) {
@@ -19,28 +31,33 @@ export function formatTypeName(typeName) {
     return typeName.replace(/[\W_]+/g, "");
 }
 
-export function generateGraphQlEntityName(pallet, event) {
-    // the name must not be longer than 63 chars after CamelCase to snake_case conversion
-    // becasue the will be issues with defining constraints in Postgres otherwise
+export function generateGraphQlEntityName(pallet, method) {
+    // the name must be short becasue postgres relation and constraint names must be below 63 chars
 
-    //const prefix = pallet.includes('Encointer') ? "EC" : "";
+    // capitalize first letter
+    pallet = pallet.charAt(0).toUpperCase() + pallet.slice(1)
+    
     const prefix = pallet.substring(0,3)
-    return `${prefix}${event.name}`;
+    return `${prefix}${method}`;
 }
 
-export function getFieldTypeNames(event) {
-    let fields = event.fields.map((field) => formatTypeName(field.typeName));
+function getTypeName(t) {
+    return t.typeName || t.path.slice(-1)[0] || t.def.Primitive
+}
+
+export function getFieldTypeNames(eventType) {
+    let fields = eventType.fields.map((field) => formatTypeName(getTypeName(field)));
     return deDupTypeNames(fields);
 }
 
-export function getGraphQlFieldTypes(event) {
-    return event.fields.map(
-        (field) => getTypeConversion(field.typeName).graphQlTypeName
+export function getGraphQlFieldTypes(eventType) {
+    return eventType.fields.map(
+        (field) => getTypeConversion(getTypeName(field)).graphQlTypeName
     );
 }
 
-export function getFieldTypeConversionFunctions(event) {
-    return event.fields.map(
-        (field) => getTypeConversion(field.typeName).convert
+export function getFieldTypeConversionFunctions(eventType) {
+    return eventType.fields.map(
+        (field) => getTypeConversion(getTypeName(field)).convert
     );
 }
