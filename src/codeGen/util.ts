@@ -47,7 +47,7 @@ export function generateGraphQlEntityName(pallet, method) {
     // const prefix = pallet.substring(0,3)
     // return `${prefix}${method}`;
 
-    return method;
+    return method.substring(0,32);
 }
 
 function getTypeName(t) {

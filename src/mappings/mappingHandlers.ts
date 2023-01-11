@@ -9,6 +9,8 @@ import {
 
 let specVersion: types.SpecVersion;
 
+let metadata;
+
 async function handleEvent(evt, idx, blockEntity, metadata) {
     let event = evt.event;
 
@@ -47,7 +49,7 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
-    const metadata = await api.rpc.state.getMetadata();
+    if(!metadata) metadata = await api.rpc.state.getMetadata();
     // Initialise Spec Version
     if (!specVersion) {
         specVersion = await types.SpecVersion.get(block.specVersion.toString());

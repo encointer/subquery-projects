@@ -67,14 +67,14 @@ type InactivityTimeoutUpdated @entity {
         InactivityTimeoutType: String!
 }
 
-type EndorsementTicketsPerBootstrapperUpdated @entity {
+type EndorsementTicketsPerBootstrappe @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
         EndorsementTicketsType: String!
 }
 
-type EndorsementTicketsPerReputableUpdated @entity {
+type EndorsementTicketsPerReputableUp @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
