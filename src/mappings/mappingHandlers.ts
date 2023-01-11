@@ -8,6 +8,44 @@ import {
 } from "../codeGen/util";
 
 let specVersion: types.SpecVersion;
+
+async function handleEvent(evt, idx, blockEntity, metadata) {
+    let event = evt.event;
+
+    let section =
+        event.section.charAt(0).toUpperCase() + event.section.slice(1);
+
+    if (!section.startsWith("Encointer")) return;
+
+    // get event typename
+    const eventEntityName = generateGraphQlEntityName(section, event.method);
+
+    let record = new types[eventEntityName](
+        `${blockEntity.blockHeight.toString()}-${idx}`
+    );
+
+    record.blockHeight = blockEntity.blockHeight;
+    record.timestamp = blockEntity.timestamp;
+
+    let events = getTypeVariants(
+        api,
+        metadata.asV14.pallets.find((e) => e.name.eq(section)).events.toJSON()[
+            "type"
+        ]
+    );
+    let eventType = events.find((e) => e.name == event.method);
+    const fields = getFieldTypeNames(eventType);
+
+    // get conversion functions
+    const conversions = getFieldTypeConversionFunctions(eventType);
+
+    // record[typename] = convert(event.event.data[i]);
+    for (let i = 0; i < fields.length; i++) {
+        record[fields[i]] = conversions[i](event.data[i]);
+    }
+    await record.save();
+}
+
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
     const metadata = await api.rpc.state.getMetadata();
     // Initialise Spec Version
@@ -47,43 +85,5 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
             )
     );
 
-    for (const [idx, evt] of events.entries()) {
-        let event = evt.event;
-
-        let section =
-            event.section.charAt(0).toUpperCase() + event.section.slice(1);
-
-        if (!section.startsWith("Encointer")) continue;
-
-        // get event typename
-        const eventEntityName = generateGraphQlEntityName(
-            section,
-            event.method
-        );
-
-        let record = new types[eventEntityName](
-            `${block.block.header.number.toString()}-${idx}`
-        );
-
-        record.blockHeight = blockEntity.blockHeight;
-        record.timestamp = blockEntity.timestamp;
-
-        let events = getTypeVariants(
-            api,
-            metadata.asV14.pallets
-                .find((e) => e.name.eq(section))
-                .events.toJSON()["type"]
-        );
-        let eventType = events.find((e) => e.name == event.method);
-        const fields = getFieldTypeNames(eventType);
-
-        // get conversion functions
-        const conversions = getFieldTypeConversionFunctions(eventType);
-
-        // record[typename] = convert(event.event.data[i]);
-        for (let i = 0; i < fields.length; i++) {
-            record[fields[i]] = conversions[i](event.data[i]);
-        }
-        await record.save();
-    }
+    events.forEach((evt, idx) => handleEvent(evt, idx, blockEntity, metadata));
 }
