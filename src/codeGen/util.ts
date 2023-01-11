@@ -1,5 +1,3 @@
-import { ApiDecoration, DecoratedRpc } from "@polkadot/api/types";
-import { RpcInterface } from "@polkadot/rpc-core/types";
 import { TypeDef } from "@polkadot/types-create/types";
 import { getTypeConversion } from "./typeConversions";
 
@@ -45,15 +43,17 @@ export function formatTypeName(typeName) {
 export function generateGraphQlEntityName(pallet, method) {
     // the name must be short becasue postgres relation and constraint names must be below 63 chars
 
-    // capitalize first letter
-    pallet = pallet.charAt(0).toUpperCase() + pallet.slice(1)
+    // // capitalize first letter
+    // pallet = pallet.charAt(0).toUpperCase() + pallet.slice(1)
     
-    const prefix = pallet.substring(0,3)
-    return `${prefix}${method}`;
+    // const prefix = pallet.substring(0,3)
+    // return `${prefix}${method}`;
+
+    return method
 }
 
 function getTypeName(t) {
-    return t.typeName || t.path.slice(-1)[0] || t.def.Primitive
+    return t.typeName
 }
 
 export function getFieldTypeNames(eventType) {

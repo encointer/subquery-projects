@@ -9,766 +9,21 @@ type Block @entity {
         timestamp: BigInt!
 }
 
-type SysExtrinsicSuccess @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        DispatchInfo: String!
-}
-
-type SysExtrinsicFailed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        DispatchError: String!
-        DispatchInfo: String!
-}
-
-type SysCodeUpdated @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type SysNewAccount @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-}
-
-type SysKilledAccount @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-}
-
-type SysRemarked @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        THash: String!
-}
-
-type ParValidationFunctionStored @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type ParValidationFunctionApplied @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        RelayChainBlockNumber: String!
-}
-
-type ParValidationFunctionDiscarded @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type ParUpgradeAuthorized @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-}
-
-type ParDownwardMessagesReceived @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        u32: String!
-}
-
-type ParDownwardMessagesProcessed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        Weight: String!
-        relaychainHash: String!
-}
-
-type BalEndowed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalDustLost @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalTransfer @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        TBalance: String!
-}
-
-type BalBalanceSet @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance0: String!
-        TBalance1: String!
-}
-
-type BalReserved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalUnreserved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalReserveRepatriated @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        TBalance: String!
-        Status: String!
-}
-
-type BalDeposit @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalWithdraw @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type BalSlashed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        TBalance: String!
-}
-
-type TraTransactionFeePaid @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        BalanceOfT0: String!
-        BalanceOfT1: String!
-}
-
-type AssAssetTxFeePaid @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        BalanceOfT0: String!
-        BalanceOfT1: String!
-        OptionChargeAssetIdOfT: String!
-}
-
-type XcmSuccess @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-        Weight: String!
-}
-
-type XcmFail @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-        XcmError: String!
-        Weight: String!
-}
-
-type XcmBadVersion @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-}
-
-type XcmBadFormat @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-}
-
-type XcmUpwardMessageSent @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-}
-
-type XcmXcmpMessageSent @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OptionTHash: String!
-}
-
-type XcmOverweightEnqueued @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        ParaId: String!
-        RelayBlockNumber: String!
-        OverweightIndex: String!
-        Weight: String!
-}
-
-type XcmOverweightServiced @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OverweightIndex: String!
-        Weight: String!
-}
-
-type PolAttempted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        xcmlatestOutcome: String!
-}
-
-type PolSent @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation0: String!
-        MultiLocation1: String!
-        Xcm: String!
-}
-
-type PolUnexpectedResponse @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        QueryId: String!
-}
-
-type PolResponseReady @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-        Response: String!
-}
-
-type PolNotified @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-        u80: String!
-        u81: String!
-}
-
-type PolNotifyOverweight @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-        u80: String!
-        u81: String!
-        Weight0: String!
-        Weight1: String!
-}
-
-type PolNotifyDispatchError @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-        u80: String!
-        u81: String!
-}
-
-type PolNotifyDecodeFailed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-        u80: String!
-        u81: String!
-}
-
-type PolInvalidResponder @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        QueryId: String!
-        OptionMultiLocation: String!
-}
-
-type PolInvalidResponderVersion @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        QueryId: String!
-}
-
-type PolResponseTaken @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        QueryId: String!
-}
-
-type PolAssetsTrapped @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        H256: String!
-        MultiLocation: String!
-        VersionedMultiAssets: String!
-}
-
-type PolVersionChangeNotified @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        XcmVersion: String!
-}
-
-type PolSupportedVersionChanged @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        XcmVersion: String!
-}
-
-type PolNotifyTargetSendFail @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MultiLocation: String!
-        QueryId: String!
-        XcmError: String!
-}
-
-type PolNotifyTargetMigrationFail @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        VersionedMultiLocation: String!
-        QueryId: String!
-}
-
-type CumInvalidFormat @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        u88: String!
-}
-
-type CumUnsupportedVersion @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        u88: String!
-}
-
-type CumExecutedDownward @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        u88: String!
-        Outcome: String!
-}
-
-type DmpInvalidFormat @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MessageId: String!
-}
-
-type DmpUnsupportedVersion @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MessageId: String!
-}
-
-type DmpExecutedDownward @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MessageId: String!
-        Outcome: String!
-}
-
-type DmpWeightExhausted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MessageId: String!
-        Weight0: String!
-        Weight1: String!
-}
-
-type DmpOverweightEnqueued @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        MessageId: String!
-        OverweightIndex: String!
-        Weight: String!
-}
-
-type DmpOverweightServiced @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        OverweightIndex: String!
-        Weight: String!
-}
-
-type UtiBatchInterrupted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        u32: String!
-        DispatchError: String!
-}
-
-type UtiBatchCompleted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type UtiBatchCompletedWithErrors @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type UtiItemCompleted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type UtiItemFailed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        DispatchError: String!
-}
-
-type UtiDispatchedAs @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        DispatchResult: String!
-}
-
-type TreProposed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        ProposalIndex: String!
-}
-
-type TreSpending @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        BalanceOfTI: String!
-}
-
-type TreAwarded @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        ProposalIndex: String!
-        BalanceOfTI: String!
-        TAccountId: String!
-}
-
-type TreRejected @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        ProposalIndex: String!
-        BalanceOfTI: String!
-}
-
-type TreBurnt @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        BalanceOfTI: String!
-}
-
-type TreRollover @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        BalanceOfTI: String!
-}
-
-type TreDeposit @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        BalanceOfTI: String!
-}
-
-type TreSpendApproved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        ProposalIndex: String!
-        BalanceOfTI: String!
-        TAccountId: String!
-}
-
-type ProProxyExecuted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        DispatchResult: String!
-}
-
-type ProAnonymousCreated @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        TProxyType: String!
-        u16: String!
-}
-
-type ProAnnounced @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        CallHashOfT: String!
-}
-
-type ProProxyAdded @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        TProxyType: String!
-        TBlockNumber: String!
-}
-
-type ProProxyRemoved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId0: String!
-        TAccountId1: String!
-        TProxyType: String!
-        TBlockNumber: String!
-}
-
-type SchScheduled @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TBlockNumber: String!
-        u32: String!
-}
-
-type SchCanceled @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TBlockNumber: String!
-        u32: String!
-}
-
-type SchDispatched @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TaskAddressTBlockNumber: String!
-        OptionVecu8: String!
-        DispatchResult: String!
-}
-
-type SchCallLookupFailed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TaskAddressTBlockNumber: String!
-        OptionVecu8: String!
-        LookupError: String!
-}
-
-type ColProposed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        ProposalIndex: String!
-        THash: String!
-        MemberCount: String!
-}
-
-type ColVoted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        TAccountId: String!
-        THash: String!
-        bool: String!
-        MemberCount0: String!
-        MemberCount1: String!
-}
-
-type ColApproved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-}
-
-type ColDisapproved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-}
-
-type ColExecuted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-        DispatchResult: String!
-}
-
-type ColMemberExecuted @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-        DispatchResult: String!
-}
-
-type ColClosed @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        THash: String!
-        MemberCount0: String!
-        MemberCount1: String!
-}
-
-type MemMemberAdded @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type MemMemberRemoved @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type MemMembersSwapped @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type MemMembersReset @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type MemKeyChanged @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type MemDummy @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-
-}
-
-type EncPhaseChangedTo @entity {
+type PhaseChangedTo @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CeremonyPhaseType: String!
 }
 
-type EncCeremonySchedulePushedByOneDay @entity {
+type CeremonySchedulePushedByOneDay @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
 
 }
 
-type EncParticipantRegistered @entity {
+type ParticipantRegistered @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -777,7 +32,7 @@ type EncParticipantRegistered @entity {
         TAccountId: String!
 }
 
-type EncEndorsedParticipant @entity {
+type EndorsedParticipant @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -786,7 +41,7 @@ type EncEndorsedParticipant @entity {
         TAccountId1: String!
 }
 
-type EncAttestationsRegistered @entity {
+type AttestationsRegistered @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -796,7 +51,7 @@ type EncAttestationsRegistered @entity {
         TAccountId: String!
 }
 
-type EncRewardsIssued @entity {
+type RewardsIssued @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -805,56 +60,56 @@ type EncRewardsIssued @entity {
         MeetupParticipantIndexType: String!
 }
 
-type EncInactivityTimeoutUpdated @entity {
+type InactivityTimeoutUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         InactivityTimeoutType: String!
 }
 
-type EncEndorsementTicketsPerBootstrapperUpdated @entity {
+type EndorsementTicketsPerBootstrapperUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         EndorsementTicketsType: String!
 }
 
-type EncEndorsementTicketsPerReputableUpdated @entity {
+type EndorsementTicketsPerReputableUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         EndorsementTicketsType: String!
 }
 
-type EncReputationLifetimeUpdated @entity {
+type ReputationLifetimeUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         ReputationLifetimeType: String!
 }
 
-type EncMeetupTimeOffsetUpdated @entity {
+type MeetupTimeOffsetUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         MeetupTimeOffsetType: String!
 }
 
-type EncTimeToleranceUpdated @entity {
+type TimeToleranceUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         TMoment: String!
 }
 
-type EncLocationToleranceUpdated @entity {
+type LocationToleranceUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         u32: String!
 }
 
-type EncCommunityCeremonyHistoryPurged @entity {
+type CommunityCeremonyHistoryPurged @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -862,7 +117,7 @@ type EncCommunityCeremonyHistoryPurged @entity {
         CeremonyIndexType: String!
 }
 
-type EncNoReward @entity {
+type NoReward @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -873,7 +128,7 @@ type EncNoReward @entity {
         ExclusionReason: String!
 }
 
-type EncInactivityCounterUpdated @entity {
+type InactivityCounterUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -881,7 +136,7 @@ type EncInactivityCounterUpdated @entity {
         u32: String!
 }
 
-type EncMeetupEvaluated @entity {
+type MeetupEvaluated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -890,21 +145,21 @@ type EncMeetupEvaluated @entity {
         MeetupResult: String!
 }
 
-type EncCommunityRegistered @entity {
+type CommunityRegistered @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
-type EncMetadataUpdated @entity {
+type MetadataUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
-type EncNominalIncomeUpdated @entity {
+type NominalIncomeUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -912,7 +167,7 @@ type EncNominalIncomeUpdated @entity {
         NominalIncomeType: String!
 }
 
-type EncDemurrageUpdated @entity {
+type DemurrageUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -920,7 +175,7 @@ type EncDemurrageUpdated @entity {
         Demurrage: String!
 }
 
-type EncLocationAdded @entity {
+type LocationAdded @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -928,7 +183,7 @@ type EncLocationAdded @entity {
         Location: String!
 }
 
-type EncLocationRemoved @entity {
+type LocationRemoved @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -936,63 +191,63 @@ type EncLocationRemoved @entity {
         Location: String!
 }
 
-type EncMinSolarTripTimeSUpdated @entity {
+type MinSolarTripTimeSUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         MinSolarTripTimeType: String!
 }
 
-type EncMaxSpeedMpsUpdated @entity {
+type MaxSpeedMpsUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         MaxSpeedMpsType: String!
 }
 
-type EncCommunityPurged @entity {
+type CommunityPurged @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
 }
 
-type EncEndowed @entity {
+type Endowed @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
-        BalanceType: String!
+        BalanceType: Float!
 }
 
-type EncTransferred @entity {
+type Transferred @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId0: String!
         TAccountId1: String!
-        BalanceType: String!
+        BalanceType: Float!
 }
 
-type EncIssued @entity {
+type Issued @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         CommunityIdentifier: String!
         TAccountId: String!
-        BalanceType: String!
+        BalanceType: Float!
 }
 
-type EncFeeConversionFactorUpdated @entity {
+type FeeConversionFactorUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
         FeeConversionFactorType: String!
 }
 
-type EncBusinessCreated @entity {
+type BusinessCreated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -1000,7 +255,7 @@ type EncBusinessCreated @entity {
         TAccountId: String!
 }
 
-type EncBusinessUpdated @entity {
+type BusinessUpdated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -1008,7 +263,7 @@ type EncBusinessUpdated @entity {
         TAccountId: String!
 }
 
-type EncBusinessDeleted @entity {
+type BusinessDeleted @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -1016,16 +271,7 @@ type EncBusinessDeleted @entity {
         TAccountId: String!
 }
 
-type EncOfferingCreated @entity {
-        id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
-        CommunityIdentifier: String!
-        TAccountId: String!
-        OfferingIdentifier: String!
-}
-
-type EncOfferingUpdated @entity {
+type OfferingCreated @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
@@ -1034,7 +280,16 @@ type EncOfferingUpdated @entity {
         OfferingIdentifier: String!
 }
 
-type EncOfferingDeleted @entity {
+type OfferingUpdated @entity {
+        id: ID!
+        blockHeight: BigInt!
+        timestamp: BigInt!
+        CommunityIdentifier: String!
+        TAccountId: String!
+        OfferingIdentifier: String!
+}
+
+type OfferingDeleted @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!

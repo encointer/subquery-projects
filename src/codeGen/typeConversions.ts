@@ -1,8 +1,5 @@
 import bs58 from "bs58";
-import { parseEncointerBalance, parseDegree } from "@encointer/types";
-import { inspect } from "./util";
-import { BN } from "bn.js";
-
+import { parseEncointerBalance } from "@encointer/types";
 
 const conversions = {
     CommunityIdentifier: {
@@ -23,12 +20,8 @@ const conversions = {
     },
 
     BalanceType: {
-        graphQlTypeName: "String",
-        convert: (input) => {
-            let inp = input.toHuman();
-            logger.info(inspect(inp))
-            return parseEncointerBalance(input.bits).toString()
-        },
+        graphQlTypeName: "Float",
+        convert: (input) => parseEncointerBalance(input.bits),
     },
 };
 
