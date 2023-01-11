@@ -68,4 +68,5 @@ function generateGraphQlCode(api) {
 ApiPromise.create({ provider: wsProvider }).then(async (api) => {
     const code = generateGraphQlCode(api);
     fs.writeFileSync("schema.graphql", code);
+    process.exit(0)
 });
