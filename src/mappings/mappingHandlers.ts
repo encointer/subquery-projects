@@ -9,6 +9,7 @@ import {
 
 let specVersion: types.SpecVersion;
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
+    const metadata = await api.rpc.state.getMetadata();
     // Initialise Spec Version
     if (!specVersion) {
         specVersion = await types.SpecVersion.get(block.specVersion.toString());
@@ -69,7 +70,7 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
 
         let events = getTypeVariants(
             api,
-            (await api.rpc.state.getMetadata()).asV14.pallets
+            metadata.asV14.pallets
                 .find((e) => e.name.eq(section))
                 .events.toJSON()["type"]
         );
