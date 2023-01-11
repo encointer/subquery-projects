@@ -1,4 +1,8 @@
 import bs58 from "bs58";
+import { parseEncointerBalance, parseDegree } from "@encointer/types";
+import { inspect } from "./util";
+import { BN } from "bn.js";
+
 
 const conversions = {
     CommunityIdentifier: {
@@ -15,6 +19,15 @@ const conversions = {
             }
 
             return geohash + bs58.encode(Uint8Array.from(buffer));
+        },
+    },
+
+    BalanceType: {
+        graphQlTypeName: "String",
+        convert: (input) => {
+            let inp = input.toHuman();
+            logger.info(inspect(inp))
+            return parseEncointerBalance(input.bits).toString()
         },
     },
 };

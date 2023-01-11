@@ -13,18 +13,6 @@ import {
     getTypeVariants,
 } from "../codeGen/util";
 
-import util from 'util'
-
-
-
-function inspect(message){
-  return util.inspect(message, {
-    showHidden: false,
-    depth: null,
-    colors: true,
-})
-}
-
 
 let specVersion: types.SpecVersion;
 export async function handleBlock(block: SubstrateBlock): Promise<void> {

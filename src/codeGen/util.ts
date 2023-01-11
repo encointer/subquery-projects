@@ -3,6 +3,17 @@ import { RpcInterface } from "@polkadot/rpc-core/types";
 import { TypeDef } from "@polkadot/types-create/types";
 import { getTypeConversion } from "./typeConversions";
 
+import util from 'util'
+
+export function inspect(message){
+    return util.inspect(message, {
+      showHidden: false,
+      depth: null,
+      colors: true,
+  })
+  }
+
+
 export function getTypeByIndex(api, idx) {
     return api.registry.lookup.types[idx];
 }
