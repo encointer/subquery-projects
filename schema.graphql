@@ -16,7 +16,7 @@ type PhaseChangedTo @entity {
         CeremonyPhaseType: String!
 }
 
-type CeremonySchedulePushedByOneDay @entity {
+type SchedulePushed @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
@@ -67,14 +67,14 @@ type InactivityTimeoutUpdated @entity {
         InactivityTimeoutType: String!
 }
 
-type EndorsementTicketsPerBootstrappe @entity {
+type BootstrapperTicketsUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
         EndorsementTicketsType: String!
 }
 
-type EndorsementTicketsPerReputableUp @entity {
+type ReputableTicketsUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
@@ -109,7 +109,7 @@ type LocationToleranceUpdated @entity {
         u32: String!
 }
 
-type CommunityCeremonyHistoryPurged @entity {
+type HistoryPurged @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index

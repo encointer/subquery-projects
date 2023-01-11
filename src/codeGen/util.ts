@@ -2,6 +2,7 @@ import { TypeDef } from "@polkadot/types-create/types";
 import { getTypeConversion } from "./typeConversions";
 
 import util from "util";
+import { shortEventNameMap } from "./config";
 
 export function inspect(message) {
     return util.inspect(message, {
@@ -47,7 +48,7 @@ export function generateGraphQlEntityName(pallet, method) {
     // const prefix = pallet.substring(0,3)
     // return `${prefix}${method}`;
 
-    return method.substring(0,32);
+    return shortEventNameMap[method] || method;
 }
 
 function getTypeName(t) {
