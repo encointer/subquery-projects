@@ -1,16 +1,15 @@
 import { TypeDef } from "@polkadot/types-create/types";
 import { getTypeConversion } from "./typeConversions";
 
-import util from 'util'
+import util from "util";
 
-export function inspect(message){
+export function inspect(message) {
     return util.inspect(message, {
-      showHidden: false,
-      depth: null,
-      colors: true,
-  })
-  }
-
+        showHidden: false,
+        depth: null,
+        colors: true,
+    });
+}
 
 export function getTypeByIndex(api, idx) {
     return api.registry.lookup.types[idx];
@@ -19,7 +18,6 @@ export function getTypeByIndex(api, idx) {
 export function getTypeVariants(api, type: TypeDef[]) {
     return getTypeByIndex(api, type)?.type.def.asVariant.variants.toHuman();
 }
-
 
 function deDupTypeNames(typeNames) {
     for (let i = 0; i < typeNames.length - 1; i++) {
@@ -45,20 +43,29 @@ export function generateGraphQlEntityName(pallet, method) {
 
     // // capitalize first letter
     // pallet = pallet.charAt(0).toUpperCase() + pallet.slice(1)
-    
+
     // const prefix = pallet.substring(0,3)
     // return `${prefix}${method}`;
 
-    return method
+    return method;
 }
 
 function getTypeName(t) {
-    return t.typeName
+    return t.typeName;
 }
 
 export function getFieldTypeNames(eventType) {
-    let fields = eventType.fields.map((field) => formatTypeName(getTypeName(field)));
+    let fields = eventType.fields.map((field) =>
+        formatTypeName(getTypeName(field))
+    );
     return deDupTypeNames(fields);
+}
+
+export function getFieldTypeNamesRaw(eventType) {
+    let fields = eventType.fields.map((field) =>
+        formatTypeName(getTypeName(field))
+    );
+    return fields;
 }
 
 export function getGraphQlFieldTypes(eventType) {
