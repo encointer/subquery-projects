@@ -20,21 +20,6 @@ export function getTypeVariants(api, type: TypeDef[]) {
     return getTypeByIndex(api, type)?.type.def.asVariant.variants.toHuman();
 }
 
-function deDupTypeNames(typeNames) {
-    for (let i = 0; i < typeNames.length - 1; i++) {
-        let counter = 0;
-        let modified = false;
-        for (let j = i + 1; j < typeNames.length; j++) {
-            if (typeNames[i] === typeNames[j]) {
-                typeNames[j] = `${typeNames[j]}${++counter}`;
-                modified = true;
-            }
-        }
-        if (modified) typeNames[i] = `${typeNames[i]}${0}`;
-    }
-    return typeNames;
-}
-
 export function formatTypeName(typeName) {
     return typeName.replace(/[\W_]+/g, "");
 }
@@ -51,32 +36,23 @@ export function generateGraphQlEntityName(pallet, method) {
     return shortEventNameMap[method] || method;
 }
 
-function getTypeName(t) {
-    return t.typeName;
-}
-
-export function getFieldTypeNames(eventType) {
-    let fields = eventType.fields.map((field) =>
-        formatTypeName(getTypeName(field))
-    );
-    return deDupTypeNames(fields);
-}
-
-export function getFieldTypeNamesRaw(eventType) {
-    let fields = eventType.fields.map((field) =>
-        formatTypeName(getTypeName(field))
-    );
+export function getTypeNames(eventType) {
+    let fields = eventType.fields.map((field) => field.typeName);
     return fields;
+}
+
+export function getGraphQlFieldNames(eventType) {
+    return eventType.fields.map((field, idx) => `arg${idx}`);
 }
 
 export function getGraphQlFieldTypes(eventType) {
     return eventType.fields.map(
-        (field) => getTypeConversion(getTypeName(field)).graphQlTypeName
+        (field) => getTypeConversion(field.typeName).graphQlTypeName
     );
 }
 
 export function getFieldTypeConversionFunctions(eventType) {
     return eventType.fields.map(
-        (field) => getTypeConversion(getTypeName(field)).convert
+        (field) => getTypeConversion(field.typeName).convert
     );
 }

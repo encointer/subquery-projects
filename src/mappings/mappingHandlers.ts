@@ -3,8 +3,9 @@ import * as types from "../types";
 import {
     generateGraphQlEntityName,
     getFieldTypeConversionFunctions,
-    getFieldTypeNames,
+    getGraphQlFieldNames,
     getTypeVariants,
+    inspect,
 } from "../codeGen/util";
 
 let specVersion: types.SpecVersion;
@@ -36,7 +37,7 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
         ]
     );
     let eventType = events.find((e) => e.name == event.method);
-    const fields = getFieldTypeNames(eventType);
+    const fields = getGraphQlFieldNames(eventType);
 
     // get conversion functions
     const conversions = getFieldTypeConversionFunctions(eventType);

@@ -3,9 +3,9 @@ const encointer_rpc_endpoint = "wss://kusama.api.encointer.org";
 
 import {
     generateGraphQlEntityName,
-    getFieldTypeNames,
-    getFieldTypeNamesRaw,
+    getGraphQlFieldNames,
     getGraphQlFieldTypes,
+    getTypeNames,
     getTypeVariants,
 } from "./util";
 import fs from "fs";
@@ -15,13 +15,13 @@ const wsProvider = new WsProvider(encointer_rpc_endpoint);
 
 function generateGraphQlEventCode(pallet, eventType) {
     const typeName = generateGraphQlEntityName(pallet, eventType.name);
-    let fields = getFieldTypeNames(eventType);
-    let fieldsRaw = getFieldTypeNamesRaw(eventType);
+    let types = getTypeNames(eventType);
     let graphQlFieldTypes = getGraphQlFieldTypes(eventType);
+    let fields = getGraphQlFieldNames(eventType);
 
     const args = fields.map((field, idx) => {
         let argCode = `        ${field}: ${graphQlFieldTypes[idx]}!`;
-        if (indexedTypes.includes(fieldsRaw[idx])) argCode += " @index";
+        if (indexedTypes.includes(types[idx])) argCode += " @index";
         return argCode;
     });
     const argString = args.join("\n");
@@ -68,5 +68,5 @@ function generateGraphQlCode(api) {
 ApiPromise.create({ provider: wsProvider }).then(async (api) => {
     const code = generateGraphQlCode(api);
     fs.writeFileSync("schema.graphql", code);
-    process.exit(0)
+    process.exit(0);
 });

@@ -13,7 +13,7 @@ type PhaseChangedTo @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CeremonyPhaseType: String!
+        arg0: String!
 }
 
 type SchedulePushed @entity {
@@ -27,273 +27,273 @@ type ParticipantRegistered @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        ParticipantType: String!
-        TAccountId: String! @index
+        arg0: String! @index
+        arg1: String!
+        arg2: String! @index
 }
 
 type EndorsedParticipant @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId0: String! @index
-        TAccountId1: String! @index
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String! @index
 }
 
 type AttestationsRegistered @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        MeetupIndexType: String!
-        u32: String!
-        TAccountId: String! @index
+        arg0: String! @index
+        arg1: String!
+        arg2: String!
+        arg3: String! @index
 }
 
 type RewardsIssued @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        MeetupIndexType: String!
-        MeetupParticipantIndexType: String!
+        arg0: String! @index
+        arg1: String!
+        arg2: String!
 }
 
 type InactivityTimeoutUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        InactivityTimeoutType: String!
+        arg0: String!
 }
 
 type BootstrapperTicketsUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        EndorsementTicketsType: String!
+        arg0: String!
 }
 
 type ReputableTicketsUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        EndorsementTicketsType: String!
+        arg0: String!
 }
 
 type ReputationLifetimeUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        ReputationLifetimeType: String!
+        arg0: String!
 }
 
 type MeetupTimeOffsetUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        MeetupTimeOffsetType: String!
+        arg0: String!
 }
 
 type TimeToleranceUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        TMoment: String!
+        arg0: String!
 }
 
 type LocationToleranceUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        u32: String!
+        arg0: String!
 }
 
 type HistoryPurged @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        CeremonyIndexType: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type NoReward @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        CeremonyIndexType: String!
-        MeetupIndexType: String!
-        TAccountId: String! @index
-        ExclusionReason: String!
+        arg0: String! @index
+        arg1: String!
+        arg2: String!
+        arg3: String! @index
+        arg4: String!
 }
 
 type InactivityCounterUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        u32: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type MeetupEvaluated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        MeetupIndexType: String!
-        MeetupResult: String!
+        arg0: String! @index
+        arg1: String!
+        arg2: String!
 }
 
 type CommunityRegistered @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
+        arg0: String! @index
 }
 
 type MetadataUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
+        arg0: String! @index
 }
 
 type NominalIncomeUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        NominalIncomeType: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type DemurrageUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        Demurrage: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type LocationAdded @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        Location: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type LocationRemoved @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        Location: String!
+        arg0: String! @index
+        arg1: String!
 }
 
 type MinSolarTripTimeSUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        MinSolarTripTimeType: String!
+        arg0: String!
 }
 
 type MaxSpeedMpsUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        MaxSpeedMpsType: String!
+        arg0: String!
 }
 
 type CommunityPurged @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
+        arg0: String! @index
 }
 
 type Endowed @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
-        BalanceType: Float!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: Float!
 }
 
 type Transferred @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId0: String! @index
-        TAccountId1: String! @index
-        BalanceType: Float!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String! @index
+        arg3: Float!
 }
 
 type Issued @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
-        BalanceType: Float!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: Float!
 }
 
 type FeeConversionFactorUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        FeeConversionFactorType: String!
+        arg0: String!
 }
 
 type BusinessCreated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
+        arg0: String! @index
+        arg1: String! @index
 }
 
 type BusinessUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
+        arg0: String! @index
+        arg1: String! @index
 }
 
 type BusinessDeleted @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
+        arg0: String! @index
+        arg1: String! @index
 }
 
 type OfferingCreated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
-        OfferingIdentifier: String!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String!
 }
 
 type OfferingUpdated @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
-        OfferingIdentifier: String!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String!
 }
 
 type OfferingDeleted @entity {
         id: ID!
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
-        CommunityIdentifier: String! @index
-        TAccountId: String! @index
-        OfferingIdentifier: String!
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String!
 }

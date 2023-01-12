@@ -1,4 +1,4 @@
-export const indexedTypes = ["TAccountId", "CommunityIdentifier"];
+export const indexedTypes = ["T::AccountId", "CommunityIdentifier"];
 
 export const shortEventNameMap = {
     CommunityCeremonyHistoryPurged : 'HistoryPurged',
