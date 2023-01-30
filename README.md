@@ -101,3 +101,61 @@ For the `subql-starter` project, you can try to query with the following code to
   }
 }
 ```
+
+
+# Encointer specific setup
+
+We built an extension to the subquery service that automatically created graphQL types and mapping handlers for all encointer events.
+The graphQL types will look as follows:
+```
+type Transferred @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String! @index
+        arg3: Float!
+}
+```
+
+Where `arg0, arg1..` are simply the values of the arguments of the event.
+There are no extra steps that need to be taken in order to generate those types. It is inclused in the `yarn codegen` command.
+
+
+## Configuration
+There is some extra configuration than can be made when generating the graphQL schema.
+
+### Type conversions
+Per default the arguments of the event will simply be parsed to a string using the `.toString()` method. Should there be a need to do some extra conversion between a Substrate type and the corresponding graphQL type this conversion can be defined in `src/codeGen/typeConversions.ts` by adding an entry to the `conversions` object, like in the example below
+
+```
+const conversions = {
+    CommunityIdentifier: {
+        graphQlTypeName: "String",
+        convert: (input) => {
+            let inp = input.toHuman();
+            const geohash = inp["geohash"];
+            const digest = inp["digest"];
+            let buffer;
+            if (digest.startsWith("0x")) {
+                buffer = Buffer.from(input.toHuman()["digest"].slice(2), "hex");
+            } else {
+                buffer = Buffer.from(input.toHuman()["digest"], "utf-8");
+            }
+
+            return geohash + bs58.encode(Uint8Array.from(buffer));
+        },
+    },
+};
+```
+
+The above example defines a conversion from the Encointer type `CommunityIdentifier` to the graphQL type `String` using a conversion function pasring the cid and converting to Encointer's custom Base58 cid format.
+
+### Indexed types
+
+In `src/codeGen/config.ts` there is a `indexedTypes` array. Event arguments of types that are contained in this array will receive an `@index` in the corresponding GraphQl schema for faster queries. For example `T::AccountId` is contained in the array, because we need to be able to effiecliently run queries like finding all transactions of a specific account. 
+
+
+### shortEventNameMap
+Also in `src/codeGen/config.ts` there is an object called `shortEventNameMap`. This is to map long event names to shorter ones as unfortunately in Postgres the length of a relation name is limited to 63 chars and with long event names this limit will be exeeded for constraint names, leading to trunctation of the relation name, which will lead to errors about duplicate relation names.
