@@ -22,10 +22,11 @@
   "license": "MIT",
   "devDependencies": {
     "@polkadot/api": "^9",
-    "@subql/cli": "latest",
-    "@subql/types": "latest",
+    "@subql/cli": "1.10.1",
+    "@subql/types": "1.7.1",
     "node-fetch": "2.6.7",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "@types/node": "^20.4.5"
   },
   "exports": {
     "chaintypes": "src/chaintypes.ts"
@@ -34,6 +35,8 @@
     "@encointer/types": "^0.9.0-alpha.3",
     "@encointer/util": "^0.9.0-alpha.3",
     "@encointer/worker-api": "^0.9.0-alpha.3",
-    "bs58": "^5.0.0"
+    "@types/node": "^20.4.5",
+    "bs58": "^5.0.0",
+    "csv": "^6.3.1"
   }
 }

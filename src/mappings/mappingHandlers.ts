@@ -8,9 +8,13 @@ import {
     inspect,
 } from "../codeGen/util";
 
+
+import { addFakeEvents } from "./additionalData/fakeEvents";
+
 let specVersion: types.SpecVersion;
 
 let metadata;
+
 
 async function handleEvent(evt, idx, blockEntity, metadata) {
     let event = evt.event;
@@ -19,6 +23,9 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
         event.section.charAt(0).toUpperCase() + event.section.slice(1);
 
     if (!section.startsWith("Encointer")) return;
+
+    // exclude rescue events
+    if ([818393, 1063138].includes(blockEntity.blockHeight)) return;
 
     // get event typename
     const eventEntityName = generateGraphQlEntityName(section, event.method);
@@ -50,7 +57,11 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
-    if(!metadata) metadata = await api.rpc.state.getMetadata();
+    if(!metadata){
+        // first block
+        metadata = await api.rpc.state.getMetadata();
+        addFakeEvents(api);
+    }
     // Initialise Spec Version
     if (!specVersion) {
         specVersion = await types.SpecVersion.get(block.specVersion.toString());
@@ -63,9 +74,23 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
         await specVersion.save();
     }
 
+    const blockHash = block.block.header.hash.toString()
     // create block instance
-    let blockEntity = new types.Block(block.block.header.hash.toString());
+    let blockEntity = new types.Block(blockHash);
     blockEntity.blockHeight = block.block.header.number.toBigInt();
+
+
+    let [cindex, phase, nextPhaseTimestamp, reputationLifetime] = await api.queryMulti([
+        [api.query.encointerScheduler.currentCeremonyIndex],
+        [api.query.encointerScheduler.currentPhase],
+        [api.query.encointerScheduler.nextPhaseTimestamp],
+        [api.query.encointerCeremonies.reputationLifetime],
+    ]);
+    blockEntity.cindex = parseInt(cindex.toString());
+    blockEntity.phase = phase.toString();
+    blockEntity.nextPhaseTimestamp = BigInt(nextPhaseTimestamp.toString());
+    blockEntity.reputationLifetime = parseInt(reputationLifetime.toString());
+
 
     for (const extrinsic of block.block.extrinsics) {
         if (

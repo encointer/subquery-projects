@@ -45,6 +45,10 @@ type Block @entity {
         id: ID!
         blockHeight: BigInt!
         timestamp: BigInt!
+        cindex: Int!
+        phase: String!
+        nextPhaseTimestamp: BigInt!
+        reputationLifetime: Int!
 }`;
 }
 

@@ -14,8 +14,12 @@ const conversions = {
             } else {
                 buffer = Buffer.from(input.toHuman()["digest"], "utf-8");
             }
+            let cid =  geohash + bs58.encode(Uint8Array.from(buffer));
 
-            return geohash + bs58.encode(Uint8Array.from(buffer));
+            // consolidate multiple LEU cids
+            if(['u0qj92QX9PQ', 'u0qj9QqA2Q'].includes(cid)) cid = 'u0qj944rhWE'
+            
+            return cid
         },
     },
 
