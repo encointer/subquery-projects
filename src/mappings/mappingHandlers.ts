@@ -25,7 +25,7 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
     if (!section.startsWith("Encointer")) return;
 
     // exclude rescue events
-    if ([818393, 1063138].includes(blockEntity.blockHeight)) return;
+    if ([BigInt(818393), BigInt(1063138)].includes(blockEntity.blockHeight)) return;
 
     // get event typename
     const eventEntityName = generateGraphQlEntityName(section, event.method);
@@ -58,9 +58,11 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
     if(!metadata){
-        // first block
+        // first block after startup
         metadata = await api.rpc.state.getMetadata();
-        addFakeEvents(api);
+        // remove rescue events that were wrongly added
+        store.remove('RewardsIssued', '818393-1')
+        store.remove('RewardsIssued', '1063138-1')
     }
     // Initialise Spec Version
     if (!specVersion) {
@@ -78,6 +80,11 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
     // create block instance
     let blockEntity = new types.Block(blockHash);
     blockEntity.blockHeight = block.block.header.number.toBigInt();
+
+    // in startblock, add fake data
+    if(blockEntity.blockHeight == BigInt(508439)){
+        addFakeEvents(api);
+    }
 
 
     let [cindex, phase, nextPhaseTimestamp, reputationLifetime] = await api.queryMulti([
