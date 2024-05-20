@@ -5,12 +5,333 @@ type SpecVersion @entity {
       
 type Block @entity {
         id: ID!
-        blockHeight: BigInt!
-        timestamp: BigInt!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
         cindex: Int!
         phase: String!
         nextPhaseTimestamp: BigInt!
         reputationLifetime: Int!
+}
+
+type Attempted @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+}
+
+type Sent @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+        arg3: String!
+}
+
+type UnexpectedResponse @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type ResponseReady @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type Notified @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type NotifyOverweight @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+        arg3: String!
+        arg4: String!
+}
+
+type NotifyDispatchError @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type NotifyDecodeFailed @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type InvalidResponder @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type InvalidResponderVersion @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type ResponseTaken @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+}
+
+type AssetsTrapped @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type VersionChangeNotified @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+        arg3: String!
+}
+
+type SupportedVersionChanged @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type NotifyTargetSendFail @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type NotifyTargetMigrationFail @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type InvalidQuerierVersion @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type InvalidQuerier @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+        arg3: String!
+}
+
+type VersionNotifyStarted @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type VersionNotifyRequested @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type VersionNotifyUnrequested @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type FeesPaid @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type AssetsClaimed @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+        arg2: String!
+}
+
+type VersionMigrationFinished @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+}
+
+type Send @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+}
+
+type TeleportAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+}
+
+type ReserveTransferAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+}
+
+type Execute @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+}
+
+type ForceXcmVersion @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+}
+
+type ForceDefaultXcmVersion @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type ForceSubscribeVersionNotify @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type ForceUnsubscribeVersionNotify @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type LimitedReserveTransferAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+        arg4: String
+}
+
+type LimitedTeleportAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+        arg4: String
+}
+
+type ForceSuspension @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type TransferAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+        arg4: String
+}
+
+type ClaimAssets @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
 }
 
 type PhaseChangedTo @entity {
@@ -25,6 +346,35 @@ type SchedulePushed @entity {
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
 
+}
+
+type NextPhase @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+
+}
+
+type PushByOneDay @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+
+}
+
+type SetPhaseDuration @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+}
+
+type SetNextPhaseTimestamp @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
 }
 
 type ParticipantRegistered @entity {
@@ -149,6 +499,111 @@ type MeetupEvaluated @entity {
         arg2: String!
 }
 
+type RegisterParticipant @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpgradeRegistration @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UnregisterParticipant @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type AttestAttendees @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+        arg2: String
+}
+
+type EndorseNewcomer @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String @index
+}
+
+type ClaimRewards @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type SetInactivityTimeout @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetEndorsementTicketsPerBootstrapper @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetEndorsementTicketsPerReputable @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetReputationLifetime @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetMeetupTimeOffset @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetTimeTolerance @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetLocationTolerance @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type PurgeCommunityCeremony @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
 type CommunityRegistered @entity {
         id: ID!
         blockHeight: BigInt! @index
@@ -216,6 +671,78 @@ type CommunityPurged @entity {
         arg0: String! @index
 }
 
+type NewCommunity @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+        arg4: String
+}
+
+type AddLocation @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type RemoveLocation @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpdateCommunityMetadata @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpdateDemurrage @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpdateNominalIncome @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type SetMinSolarTripTimeS @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type SetMaxSpeedMps @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type PurgeCommunity @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+}
+
 type Endowed @entity {
         id: ID!
         blockHeight: BigInt! @index
@@ -249,6 +776,30 @@ type FeeConversionFactorUpdated @entity {
         blockHeight: BigInt! @index
         timestamp: BigInt! @index
         arg0: String!
+}
+
+type Transfer @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String @index
+        arg2: Float
+}
+
+type SetFeeConversionFactor @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type TransferAll @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String @index
 }
 
 type BusinessCreated @entity {
@@ -300,4 +851,174 @@ type OfferingDeleted @entity {
         arg0: String! @index
         arg1: String! @index
         arg2: String!
+}
+
+type CreateBusiness @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpdateBusiness @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type DeleteBusiness @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+}
+
+type CreateOffering @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type UpdateOffering @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+        arg2: String
+}
+
+type DeleteOffering @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+}
+
+type RegisteredCommitmentPurpose @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+        arg1: String!
+}
+
+type CommitedReputation @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+        arg1: String!
+        arg2: String!
+        arg3: String! @index
+        arg4: String!
+}
+
+type CommitmentRegistryPurged @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+}
+
+type RegisterPurpose @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+}
+
+type CommitReputation @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String
+        arg2: String
+        arg3: String
+}
+
+type Dripped @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+        arg1: String! @index
+        arg2: String!
+}
+
+type FaucetCreated @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+        arg1: String!
+}
+
+type ReserveAmountUpdated @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String!
+}
+
+type FaucetDissolved @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+}
+
+type FaucetClosed @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String! @index
+}
+
+type CreateFaucet @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
+        arg1: String
+        arg2: String
+        arg3: String
+}
+
+type Drip @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String @index
+        arg2: String
+}
+
+type DissolveFaucet @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+        arg1: String @index
+}
+
+type CloseFaucet @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String @index
+}
+
+type SetReserveAmount @entity {
+        id: ID!
+        blockHeight: BigInt! @index
+        timestamp: BigInt! @index
+        arg0: String
 }

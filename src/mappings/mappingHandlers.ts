@@ -1,6 +1,8 @@
 import { SubstrateBlock } from "@subql/types";
 import * as types from "../types";
 import {
+    camelToSnake,
+    formatExtrinsicTypeName,
     generateGraphQlEntityName,
     getFieldTypeConversionFunctions,
     getGraphQlFieldNames,
@@ -8,13 +10,11 @@ import {
     inspect,
 } from "../codeGen/util";
 
-
 import { addFakeEvents } from "./additionalData/fakeEvents";
 
 let specVersion: types.SpecVersion;
 
 let metadata;
-
 
 async function handleEvent(evt, idx, blockEntity, metadata) {
     let event = evt.event;
@@ -22,10 +22,12 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
     let section =
         event.section.charAt(0).toUpperCase() + event.section.slice(1);
 
-    if (!section.startsWith("Encointer")) return;
+    if (!(section.startsWith("Encointer") || section.startsWith("PolkadotXcm")))
+        return;
 
     // exclude rescue events
-    if ([BigInt(818393), BigInt(1063138)].includes(blockEntity.blockHeight)) return;
+    if ([BigInt(818393), BigInt(1063138)].includes(blockEntity.blockHeight))
+        return;
 
     // get event typename
     const eventEntityName = generateGraphQlEntityName(section, event.method);
@@ -56,13 +58,65 @@ async function handleEvent(evt, idx, blockEntity, metadata) {
     await record.save();
 }
 
+async function handleExtrinsic(xt, idx, blockEntity, metadata) {
+    let section = xt.method.section;
+    let method = xt.method.method;
+
+    section = section.charAt(0).toUpperCase() + section.slice(1);
+
+    if (!(section.startsWith("Encointer") || section.startsWith("PolkadotXcm")))
+        return;
+
+    logger.warn(section);
+    // get event typename
+    const extrinsicEntityName = generateGraphQlEntityName(
+        section,
+        method.charAt(0).toUpperCase() + method.slice(1)
+    );
+
+    logger.warn(extrinsicEntityName);
+
+    // discontinued extrinsincs will be ignored
+    if (!(extrinsicEntityName in types)) return;
+
+    let extrinsics = getTypeVariants(
+        api,
+        metadata.asV14.pallets.find((e) => e.name.eq(section)).calls.toJSON()[
+            "type"
+        ]
+    );
+
+    let extrinsicType = extrinsics.find(
+        (e) => e.name == camelToSnake(xt.method.method)
+    );
+
+    let record = new types[extrinsicEntityName](
+        `${blockEntity.blockHeight.toString()}-${idx}`
+    );
+
+    record.blockHeight = blockEntity.blockHeight;
+    record.timestamp = blockEntity.timestamp;
+
+    const fields = getGraphQlFieldNames(extrinsicType);
+
+    // get conversion functions
+    const conversions = getFieldTypeConversionFunctions(extrinsicType);
+
+    // record[typename] = convert(event.event.data[i]);
+    for (let i = 0; i < fields.length; i++) {
+        if(!record.hasOwnProperty(fields[i])) continue;
+        record[fields[i]] = conversions[i](xt.args[i]);
+    }
+    await record.save();
+}
+
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
-    if(!metadata){
+    if (!metadata) {
         // first block after startup
         metadata = await api.rpc.state.getMetadata();
         // remove rescue events that were wrongly added
-        store.remove('RewardsIssued', '818393-1')
-        store.remove('RewardsIssued', '1063138-1')
+        store.remove("RewardsIssued", "818393-1");
+        store.remove("RewardsIssued", "1063138-1");
     }
     // Initialise Spec Version
     if (!specVersion) {
@@ -76,28 +130,27 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
         await specVersion.save();
     }
 
-    const blockHash = block.block.header.hash.toString()
+    const blockHash = block.block.header.hash.toString();
     // create block instance
     let blockEntity = new types.Block(blockHash);
     blockEntity.blockHeight = block.block.header.number.toBigInt();
 
     // in startblock, add fake data
-    if(blockEntity.blockHeight == BigInt(508439)){
+    if (blockEntity.blockHeight == BigInt(508439)) {
         addFakeEvents(api);
     }
 
-
-    let [cindex, phase, nextPhaseTimestamp, reputationLifetime] = await api.queryMulti([
-        [api.query.encointerScheduler.currentCeremonyIndex],
-        [api.query.encointerScheduler.currentPhase],
-        [api.query.encointerScheduler.nextPhaseTimestamp],
-        [api.query.encointerCeremonies.reputationLifetime],
-    ]);
+    let [cindex, phase, nextPhaseTimestamp, reputationLifetime] =
+        await api.queryMulti([
+            [api.query.encointerScheduler.currentCeremonyIndex],
+            [api.query.encointerScheduler.currentPhase],
+            [api.query.encointerScheduler.nextPhaseTimestamp],
+            [api.query.encointerCeremonies.reputationLifetime],
+        ]);
     blockEntity.cindex = parseInt(cindex.toString());
     blockEntity.phase = phase.toString();
     blockEntity.nextPhaseTimestamp = BigInt(nextPhaseTimestamp.toString());
     blockEntity.reputationLifetime = parseInt(reputationLifetime.toString());
-
 
     for (const extrinsic of block.block.extrinsics) {
         if (
@@ -121,4 +174,16 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
     );
 
     events.forEach((evt, idx) => handleEvent(evt, idx, blockEntity, metadata));
+
+    // Process all extrinsics in block
+    const extrinsics = block.block.extrinsics.filter(
+        (extrinsic) =>
+            !(
+                extrinsic.method.section == "timestamp" &&
+                extrinsic.method.method == "set"
+            )
+    );
+    extrinsics.forEach((xt, idx) =>
+        handleExtrinsic(xt, idx, blockEntity, metadata)
+    );
 }

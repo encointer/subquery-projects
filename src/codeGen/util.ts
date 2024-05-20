@@ -24,6 +24,25 @@ export function formatTypeName(typeName) {
     return typeName.replace(/[\W_]+/g, "");
 }
 
+export const snakeToCamel = (str) =>
+    str
+        .toLowerCase()
+        .replace(/([-_][a-z])/g, (group) =>
+            group.toUpperCase().replace("-", "").replace("_", "")
+        );
+
+export const snakeToPascal = (str) => {
+    let camelCase = snakeToCamel(str);
+    let pascalCase = camelCase[0].toUpperCase() + camelCase.substr(1);
+    return pascalCase;
+};
+
+export const camelToSnake = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+
+export function formatExtrinsicTypeName(typeName) {
+    return snakeToPascal(typeName);
+}
+
 export function generateGraphQlEntityName(pallet, method) {
     // the name must be short becasue postgres relation and constraint names must be below 63 chars
 
